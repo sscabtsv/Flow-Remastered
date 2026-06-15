@@ -89,3 +89,13 @@ Flow/
   Configs/<name>.json - named config snapshots
   Themes/<name>.json  - custom saved themes
 ```
+
+## Credits
+
+All credits are listed below
+
+[Allusive](https://discord.gg/allusive) - Original UI source from
+<br/>
+[Flow](https://discord.gg/getflow) - Original UI source from
+<br/>
+[Cabinet](https://github.com/sscabtsv) - Modifier, caretaker, updater of the modded version
