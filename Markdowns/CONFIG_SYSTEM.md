@@ -84,9 +84,9 @@ the default name (e.g. `"123456789"`).
 
 ```lua
 Config:save_named("my_preset", {
-    _flags    = Library._config._flags,
+    _flags = Library._config._flags,
     _keybinds = Library._config._keybinds,
-    _theme    = "Cyber",
+    _theme = "Cyber",
 })
 -- Returns true on success, false on failure
 ```
