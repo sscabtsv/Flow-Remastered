@@ -104,14 +104,14 @@ register it so it appears in search results:
 
 ```lua
 Window:register_element({
-    tab_name        = "Combat",
-    module_name     = "Aimbot",
-    element_type    = "custom",
-    element_title   = "My Custom Control",
-    get_frame_fn    = function() return myFrame end,
-    switch_tab_fn   = function() -- switch to Combat tab end,
-    open_module_fn  = function() -- open the Aimbot module end,
-    jump_fn         = nil,   -- optional scroll-to behavior
+    tab_name = "Combat",
+    module_name = "Aimbot",
+    element_type = "custom",
+    element_title = "My Custom Control",
+    get_frame_fn = function() return myFrame end,
+    switch_tab_fn = function() -- switch to Combat tab end,
+    open_module_fn = function() -- open the Aimbot module end,
+    jump_fn = nil,   -- optional scroll-to behavior
 })
 ```
 
