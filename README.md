@@ -1,30 +1,32 @@
 # Flow
 
-A Roblox Luau UI framework for building exploit/script-hub interfaces — tabs, modules, 34 built-in themes with a live editor, named config profiles, and a header-integrated search bar that jumps straight to any control.
+A Roblox UI framework for building script-hub interfaces, complete with tabs, modules, built-in themes with a live editor, named config profiles, and a search bar that jumps straight to any element.
 
 ## Quick Start
 
 ```lua
-local Flow = loadstring(game:HttpGet("https://raw.githubusercontent.com/YourRepo/Flow/main/Flow.lua"))()
+local Flow = loadstring(game:HttpGet("https://raw.githubusercontent.com/sscabstsv/Flow/main/Flow.lua"))()
 
-local Window = Flow:CreateWindow({ Title = "My Script", Theme = "Midnight" })
+local Window = Flow:CreateWindow({Title = "My Script", Theme = "Midnight"})
 
 local Tab = Window:create_tab("Main")
 
 local Module = Tab:create_module({
-    title    = "Player",
-    flag     = "PlayerModule",
-    callback = function(enabled) end,
+    title = "Player",
+    flag = "PlayerModule",
+    callback = function(enabled)
+      print("yes")
+    end,
 })
 
 Module:create_slider({
-    title         = "Walk Speed",
-    flag          = "WalkSpeed",
+    title = "Walk Speed",
+    flag = "WalkSpeed",
     minimum_value = 8,
     maximum_value = 200,
-    value         = 16,
-    round_number  = true,
-    callback      = function(val)
+    value = 16,
+    round_number = true,
+    callback = function(val)
         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = val
     end,
 })
@@ -32,19 +34,18 @@ Module:create_slider({
 Window:load()  -- always last
 ```
 
-See `Demo.lua` for a fully working, commented walkthrough of every feature.
+See `Demo.lua` for a fully working walkthrough of every feature.
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| `Flow.lua` | The library. Load this with `loadstring`/`HttpGet`. |
-| `Demo.lua` | Commented quick-start guide and live example of every element. |
+| `Flow.lua` | The library's full source (open sourced meaning modifications is available). |
+| `Demo.lua` | A quick-start guide and live example of every element. |
 | `API_REFERENCE.md` | Full settings/method reference for every element type. |
-| `THEME_SYSTEM.md` | All 34 built-in themes, the live editor, saving custom themes. |
+| `THEME_SYSTEM.md` | All built-in themes, the live editor, saving custom themes. |
 | `CONFIG_SYSTEM.md` | Saving/loading/duplicating named config profiles. |
-| `SEARCH_SYSTEM.md` | How the header search bar and result-jumping works. |
-| `MIGRATION_NOTES.md` | Notes for anyone upgrading an existing v1-style script. |
+| `SEARCH_SYSTEM.md` | How the search bar and result-jumping works. |
 
 ## Core Concepts
 
@@ -70,7 +71,7 @@ Full settings for each are in `API_REFERENCE.md`.
 
 **Search** — a search box is built into the header. Typing filters live across every tab, module, and control; clicking a result switches tabs, expands the module, scrolls to the control, and highlights it. `Ctrl+F` focuses the search box, `Escape` clears it.
 
-**Themes** — 34 built-in presets (`Flow._Themes` for the full list). Switch at runtime with `Window:apply_theme("Cyber")`. Users can edit and save their own themes from the Settings tab; saved themes persist to disk and reload automatically next session.
+**Themes** — built-in presets (`Flow._Themes` for the full list). Switch at runtime with `Window:apply_theme("Cyber")`. Users can edit and save their own themes from the Settings tab; saved themes persist to disk and reload automatically next session.
 
 **Configs** — `Window._config` holds all current flag values, keybinds, and the active theme. Named snapshots can be saved/loaded/deleted/duplicated from the Settings tab, stored under `Flow/Configs/`.
 
@@ -88,7 +89,3 @@ Flow/
   Configs/<name>.json - named config snapshots
   Themes/<name>.json  - custom saved themes
 ```
-
-## Backward Compatibility
-
-`create_label`, `create_button`, `create_checkbox`, `create_slider`, and `create_dropdown` keep their original signatures and behavior - existing scripts built against the v1 API continue to work unchanged. See `MIGRATION_NOTES.md` for details.
