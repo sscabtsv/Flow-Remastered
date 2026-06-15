@@ -56,14 +56,14 @@ Each theme is a table with exactly these 8 keys:
 
 ```lua
 {
-    Background       = Color3,  -- main window background
+    Background = Color3,  -- main window background
     ModuleBackground = Color3,  -- module card backgrounds
-    Accent           = Color3,  -- buttons, active toggles, highlights
-    SecondaryAccent  = Color3,  -- toggle knob when active
-    Text             = Color3,  -- primary text
-    TextDark         = Color3,  -- secondary / dimmed text
-    Highlight        = Color3,  -- hover glow, decorative accent
-    Stroke           = Color3,  -- borders and separators
+    Accent = Color3,  -- buttons, active toggles, highlights
+    SecondaryAccent = Color3,  -- toggle knob when active
+    Text = Color3,  -- primary text
+    TextDark = Color3,  -- secondary / dimmed text
+    Highlight = Color3,  -- hover glow, decorative accent
+    Stroke = Color3,  -- borders and separators
 }
 ```
 
@@ -73,7 +73,7 @@ Each theme is a table with exactly these 8 keys:
 
 ### At window creation
 ```lua
-local Window = Flow:CreateWindow({ Title="My App", Theme="Cyber" })
+local Window = Flow:CreateWindow({ Title = "My App", Theme = "Cyber" })
 ```
 
 ### At runtime
@@ -119,14 +119,14 @@ for k, v in pairs(Themes["Cyber"]) do snapshot[k] = v end
 snapshot.Accent = Color3.fromRGB(255, 80, 0)  -- override one slot
 Config:save_theme("CyberOrange", snapshot)
 -- Register it so it appears in dropdowns
-Themes["CyberOrange"]    = snapshot
+Themes["CyberOrange"] = snapshot
 ThemeMeta["CyberOrange"] = { category="Custom", desc="Cyber with orange accent" }
 ```
 
 ### Deleting a custom theme
 ```lua
 Config:delete_theme("CyberOrange")
-Themes["CyberOrange"]    = nil
+Themes["CyberOrange"] = nil
 ThemeMeta["CyberOrange"] = nil
 ```
 Only themes with `category = "Custom"` can be deleted via the Settings tab.
@@ -151,16 +151,16 @@ local Flow = loadstring(...)()
 Flow._Library  -- access the raw Library table
 -- or after loading:
 Themes["MyTheme"] = {
-    Background       = Color3.fromRGB(10, 12, 18),
+    Background = Color3.fromRGB(10, 12, 18),
     ModuleBackground = Color3.fromRGB(18, 22, 32),
-    Accent           = Color3.fromRGB(255, 200, 0),
-    SecondaryAccent  = Color3.fromRGB(255, 230, 100),
-    Text             = Color3.fromRGB(255, 248, 220),
-    TextDark         = Color3.fromRGB(180, 168, 120),
-    Highlight        = Color3.fromRGB(210, 155, 0),
-    Stroke           = Color3.fromRGB(80, 65, 20),
+    Accent = Color3.fromRGB(255, 200, 0),
+    SecondaryAccent = Color3.fromRGB(255, 230, 100),
+    Text = Color3.fromRGB(255, 248, 220),
+    TextDark = Color3.fromRGB(180, 168, 120),
+    Highlight = Color3.fromRGB(210, 155, 0),
+    Stroke = Color3.fromRGB(80, 65, 20),
 }
-ThemeMeta["MyTheme"] = { category="Custom", desc="Golden dark" }
+ThemeMeta["MyTheme"] = { category = "Custom", desc = "Golden dark" }
 ```
 
 ---
