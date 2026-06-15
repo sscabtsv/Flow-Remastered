@@ -96,7 +96,7 @@ Config:save_named("my_preset", {
 ```lua
 local data = Config:load_named("my_preset")
 if data then
-    Library._config._flags    = data._flags
+    Library._config._flags = data._flags
     Library._config._keybinds = data._keybinds
     Window:apply_theme(data._theme)
 end
@@ -119,7 +119,7 @@ local names = Config:list_named()
 ### Duplicate (copy one config to another name)
 
 ```lua
-local src  = Config:load_named("default")
+local src = Config:load_named("default")
 if src then
     Config:save_named("pvp_tweaked", src)
 end
@@ -156,8 +156,8 @@ Controls read their saved flag on creation and restore themselves:
 Module:create_checkbox({ flag="MyFlag", callback=fn })
 
 -- Slider: restored to 24.5 if _flags["Speed"] == 24.5
-Module:create_slider({ flag="Speed", minimum_value=8, maximum_value=100,
-                       value=16, callback=fn })
+Module:create_slider({ flag = "Speed", minimum_value = 8, maximum_value = 100,
+                       value = 16, callback = fn })
 ```
 
 Call `Window:load()` *after* all tabs and modules are created so that the
