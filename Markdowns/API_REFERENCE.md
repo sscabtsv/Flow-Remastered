@@ -34,9 +34,9 @@ A full HSV color picker with alpha slider, hex input, and live preview.
 
 ```lua
 local cpick = Module:create_colorpicker({
-    title    = "Highlight Color",
-    flag     = "HighlightColor",
-    default  = Color3.fromRGB(255, 100, 50),
+    title = "Highlight Color",
+    flag = "HighlightColor",
+    default = Color3.fromRGB(255, 100, 50),
     callback = function(color)
         -- color is a Color3
         print(color.R, color.G, color.B)
@@ -72,7 +72,7 @@ local current = cpick:GetColor()
 
 ## Module:create_keybind(settings)
 
-A standalone keybind element (separate from the module-header keybind).
+A keybind element (separate from the module-header keybind).
 Supports Toggle, Hold, and Always modes.
 
 ### Settings
@@ -112,10 +112,10 @@ Supports Toggle, Hold, and Always modes.
 
 ```lua
 local bind = Module:create_keybind({
-    title    = "Sprint",
-    flag     = "SprintBind",
-    default  = Enum.KeyCode.LeftShift,
-    mode     = "Hold",
+    title = "Sprint",
+    flag = "SprintBind",
+    default = Enum.KeyCode.LeftShift,
+    mode = "Hold",
     callback = function(active)
         local hum = game.Players.LocalPlayer.Character
             and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
@@ -155,10 +155,10 @@ A multi-select dropdown with built-in search, Select All, and Deselect All.
 
 ```lua
 local mdd = Module:create_multidropdown({
-    title    = "Active Modules",
-    flag     = "ActiveMods",
-    options  = { "ESP", "Aimbot", "Speed", "Fly", "Radar" },
-    default  = { "ESP" },
+    title = "Active Modules",
+    flag = "ActiveMods",
+    options = { "ESP", "Aimbot", "Speed", "Fly", "Radar" },
+    default = { "ESP" },
     callback = function(selected)
         -- selected = { "ESP", "Speed" }
         for _, name in ipairs(selected) do print(name) end
@@ -199,9 +199,9 @@ An animated horizontal progress bar with percentage label.
 
 ```lua
 local bar = Module:create_progressbar({
-    title    = "Loading Assets",
-    flag     = "LoadProgress",
-    value    = 0,
+    title = "Loading Assets",
+    flag = "LoadProgress",
+    value = 0,
     callback = function(val) print("Progress:", val) end,
 })
 
@@ -249,9 +249,9 @@ A single-line status indicator with a colored dot and status text.
 
 ```lua
 local st = Module:create_status({
-    title  = "Connection",
+    title = "Connection",
     status = "Loading",
-    text   = "Connecting...",
+    text = "Connecting...",
 })
 
 task.delay(2, function()
@@ -297,7 +297,7 @@ Button widths are calculated automatically:
 
 ```lua
 local grp = Module:create_buttongroup({
-    title   = "Teleport",
+    title = "Teleport",
     buttons = {
         { text="Spawn",    callback = function() teleport("Spawn")    end },
         { text="Shop",     callback = function() teleport("Shop")     end },
@@ -336,9 +336,9 @@ and visual separators.
 
 ```lua
 local img = Module:create_image({
-    title        = "Banner",
-    image        = "rbxassetid://107819132007001",
-    size         = UDim2.new(1, 0, 0, 90),
+    title = "Banner",
+    image = "rbxassetid://107819132007001",
+    size = UDim2.new(1, 0, 0, 90),
     cornerRadius = 8,
 })
 
