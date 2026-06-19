@@ -1,4 +1,5 @@
 -- Beautified to reserve file size :>
+-- fixed error in L3176
 -- srry :(
 getgenv().GG = {Language={CheckboxEnabled="Enabled",CheckboxDisabled="Disabled",SliderValue="Value",DropdownSelect="Select",DropdownNone="None",DropdownSelected="Selected",ButtonClick="Click",TextboxEnter="Enter",ModuleEnabled="Enabled",ModuleDisabled="Disabled",TabGeneral="General",TabSettings="Settings",Loading="Loading...",Error="Error",Success="Success"}};
 local SelectedLanguage = GG.Language;
@@ -3173,7 +3174,7 @@ Library._inject_v2_elements = function(ModuleManager, Options, lib, tab_title, s
 		HBCorner.CornerRadius = UDim.new(0, 6);
 		HBCorner.Parent = HueBar;
 		local HueGrad = Instance.new("UIGradient");
-		HueGrad.Color = ColorSequence.new({ColorSequenceKeypoint.new(NaN, Color3.fromRGB(255, 0, 0)),ColorSequenceKeypoint.new(1 / 6, Color3.fromRGB(255, 255, 0)),ColorSequenceKeypoint.new(2 / 6, Color3.fromRGB(0, 255, 0)),ColorSequenceKeypoint.new(3 / 6, Color3.fromRGB(0, 255, 255)),ColorSequenceKeypoint.new(4 / 6, Color3.fromRGB(0, 0, 255)),ColorSequenceKeypoint.new(5 / 6, Color3.fromRGB(255, 0, 255)),ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0))});
+		HueGrad.Color = ColorSequence.new({ColorSequenceKeypoint.new(0 / 6, Color3.fromRGB(255, 0, 0)),ColorSequenceKeypoint.new(1 / 6, Color3.fromRGB(255, 255, 0)),ColorSequenceKeypoint.new(2 / 6, Color3.fromRGB(0, 255, 0)),ColorSequenceKeypoint.new(3 / 6, Color3.fromRGB(0, 255, 255)),ColorSequenceKeypoint.new(4 / 6, Color3.fromRGB(0, 0, 255)),ColorSequenceKeypoint.new(5 / 6, Color3.fromRGB(255, 0, 255)),ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0))});
 		HueGrad.Parent = HueBar;
 		local HueCsr = Instance.new("Frame");
 		HueCsr.Name = "HueCsr";
