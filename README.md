@@ -5,7 +5,7 @@ A Roblox UI framework for building script-hub interfaces, complete with tabs, mo
 ## Quick Start
 
 ```lua
-local Flow = loadstring(game:HttpGet("https://raw.githubusercontent.com/sscabtsv/Flow-Remastered/refs/heads/main/Library/Src.lua"))()
+local Flow = loadstring(game:HttpGet("https://raw.githubusercontent.com/sscabtsv/Flow-Remastered/refs/heads/main/Library/Source.lua"))()
 
 local Window = Flow:CreateWindow({Title = "My Script", Theme = "Midnight"})
 
