@@ -1,6 +1,6 @@
 -- formatted weirdly for readability :)
 -- srry :(
-local Flow = loadstring(game:HttpGet("https://raw.githubusercontent.com/sscabtsv/Flow-Remastered/refs/heads/main/Library/Src.lua"))()
+local Flow = loadstring(game:HttpGet("https://raw.githubusercontent.com/sscabtsv/Flow-Remastered/refs/heads/main/Library/Source.lua"))()
 
 local Window = Flow:CreateWindow({
 	Title = "Flow Demo", -- string
