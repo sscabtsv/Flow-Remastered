@@ -1,12 +1,26 @@
 -- formatted weirdly for readability :)
 -- srry :(
-local Flow = loadstring(game:HttpGet("https://raw.githubusercontent.com/sscabtsv/Flow-Remastered/refs/heads/main/Library/Beta/Unstable.lua"))()
+local Flow = loadstring(game:HttpGet("https://raw.githubusercontent.com/sscabtsv/Flow-Remastered/refs/heads/main/Library/Beta/Source.lua"))()
+
+local function preload_assets()
+	task.wait(1) -- pretend to preload images/sounds
+end
+
+local function fetch_player_data()
+	task.wait(1.6) -- pretend to fetch saved data from a datastore/API
+end
+
+local function warm_up_modules()
+	task.wait(0.8) -- pretend to initialize other modules/dependencies
+end
 
 local Window = Flow:CreateWindow({
 	Title = "Flow Demo", -- string
 	Theme = "Aurora", -- string, choose from Markdowns/THEME_SYSTEM.md
 	LoadingTitle = "Flow Demo", -- string, shown on the themed loading screen
-	LoadingSubtitle = "Warming things up...", -- string, shown under the loading title
+	LoadingMode = "tasks", -- "modules" (default, waits for Window:load()), "duration" (fixed splash time), or "tasks" (waits on LoadingTasks)
+	LoadingDuration = 3, -- number, seconds to show the loading screen for when LoadingMode is "duration"
+	LoadingTasks = { preload_assets, fetch_player_data, warm_up_modules }, -- functions the loading screen waits on when LoadingMode is "tasks"
 })
 
 local GeneralTab = Window:create_tab("General", "rbxassetid://107819132007001") -- tab name(required), icon(optional)
