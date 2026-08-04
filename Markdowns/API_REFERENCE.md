@@ -1,11 +1,13 @@
-# Flow — Element API Reference
-
-All new elements follow the same conventions as v1 elements:
+All elements follow the same conventions:
 - Created on a `ModuleManager` returned by `Tab:create_module()`
 - Accept a `settings` table as their only argument
 - Return a manager object with methods to update state
 - Persist their value using a `flag` string key
 - Register themselves in the global search index automatically
+
+`Flow:CreateWatermark` (documented at the end of this file) is the one
+exception — it's created directly on `Flow`, not on a module, since a
+watermark isn't tied to any particular tab.
 
 ---
 
@@ -16,19 +18,19 @@ A full HSV color picker with alpha slider, hex input, and live preview.
 ### Settings
 
 | Key        | Type    | Required | Default                         | Description                      |
-|------------|---------|----------|---------------------------------|----------------------------------|
+|------------|---------|----------|----------------------------------|-----------------------------------|
 | `title`    | string  | No       | `"Color"`                       | Label shown next to the swatch   |
 | `flag`     | string  | Yes      | —                               | Config key (stores `{R,G,B,A}`)  |
 | `default`  | Color3  | No       | `Color3.fromRGB(130,100,255)`   | Initial color                    |
-| `callback` | fn(Color3) | No  | nil                             | Called every time color changes  |
+| `callback` | fn(Color3) | No  | nil                              | Called every time color changes  |
 
 ### Returns: `ColorpickerManager`
 
 | Method                | Signature              | Description                    |
-|-----------------------|------------------------|--------------------------------|
-| `SetColor`            | `(color: Color3)`      | Change color programmatically  |
-| `GetColor`            | `() → Color3`          | Return the current Color3      |
-| `SetAlpha`            | `(alpha: number 0-1)`  | Set transparency channel       |
+|------------------------|-------------------------|----------------------------------|
+| `SetColor`             | `(color: Color3)`      | Change color programmatically  |
+| `GetColor`             | `() → Color3`          | Return the current Color3      |
+| `SetAlpha`             | `(alpha: number 0-1)`  | Set transparency channel       |
 
 ### Example
 
@@ -78,7 +80,7 @@ Supports Toggle, Hold, and Always modes.
 ### Settings
 
 | Key        | Type       | Required | Default                  | Description                          |
-|------------|------------|----------|--------------------------|--------------------------------------|
+|------------|------------|----------|----------------------------|----------------------------------------|
 | `title`    | string     | No       | `"Keybind"`              | Row label                            |
 | `flag`     | string     | Yes      | —                        | Config key for the bound key         |
 | `default`  | KeyCode    | No       | `Enum.KeyCode.Unknown`   | Initial key binding                  |
@@ -88,7 +90,7 @@ Supports Toggle, Hold, and Always modes.
 ### Returns: `KeybindManager`
 
 | Method       | Signature                   | Description                       |
-|--------------|-----------------------------|-----------------------------------|
+|---------------|-------------------------------|--------------------------------------|
 | `SetKeybind` | `(keyCode: Enum.KeyCode)`   | Update the bound key              |
 | `GetKeybind` | `() → Enum.KeyCode`         | Return the current key            |
 | `SetMode`    | `(mode: string)`            | Change to `Toggle`/`Hold`/`Always`|
@@ -97,7 +99,7 @@ Supports Toggle, Hold, and Always modes.
 ### Modes
 
 | Mode      | Behavior                                                              |
-|-----------|-----------------------------------------------------------------------|
+|------------|--------------------------------------------------------------------------|
 | `Toggle`  | Key press alternates between `true` and `false`                       |
 | `Hold`    | Callback fires `true` on key down, `false` on key up                  |
 | `Always`  | Callback fires `true` once on creation; never stops                   |
@@ -136,7 +138,7 @@ A multi-select dropdown with built-in search, Select All, and Deselect All.
 ### Settings
 
 | Key        | Type       | Required | Default | Description                          |
-|------------|------------|----------|---------|--------------------------------------|
+|------------|------------|----------|---------|----------------------------------------|
 | `title`    | string     | No       | `"Select"` | Row label                         |
 | `flag`     | string     | Yes      | —       | Config key (stores `{ string }`)     |
 | `options`  | { string } | Yes      | —       | All available options                |
@@ -146,7 +148,7 @@ A multi-select dropdown with built-in search, Select All, and Deselect All.
 ### Returns: `MultiDropdownManager`
 
 | Method        | Signature               | Description                           |
-|---------------|-------------------------|---------------------------------------|
+|----------------|----------------------------|-------------------------------------------|
 | `SetSelected` | `(sel: { string })`     | Replace the full selection            |
 | `GetSelected` | `() → { string }`       | Return a copy of the current selection|
 | `SetOptions`  | `(opts: { string })`    | Replace the available options         |
@@ -182,7 +184,7 @@ An animated horizontal progress bar with percentage label.
 ### Settings
 
 | Key        | Type       | Required | Default      | Description                           |
-|------------|------------|----------|--------------|---------------------------------------|
+|------------|------------|----------|-----------------|------------------------------------------|
 | `title`    | string     | No       | `"Progress"` | Label above the bar                   |
 | `flag`     | string     | No       | —            | Optional config key                   |
 | `value`    | number     | No       | `0`          | Initial value (0–100)                 |
@@ -191,7 +193,7 @@ An animated horizontal progress bar with percentage label.
 ### Returns: `ProgressbarManager`
 
 | Method     | Signature             | Description                              |
-|------------|-----------------------|------------------------------------------|
+|-------------|--------------------------|-----------------------------------------------|
 | `SetValue` | `(val: number 0–100)` | Animate to the new percentage            |
 | `GetValue` | `() → number`         | Return the current value                 |
 
@@ -223,7 +225,7 @@ A single-line status indicator with a colored dot and status text.
 ### Settings
 
 | Key      | Type   | Required | Default     | Description                                        |
-|----------|--------|----------|-------------|----------------------------------------------------|
+|-----------|--------|----------|---------------|--------------------------------------------------------|
 | `title`  | string | No       | `"Status"`  | Left-side label                                    |
 | `flag`   | string | No       | —           | Unused (display only, no persistence)              |
 | `status` | string | No       | `"Enabled"` | Initial status key (see table below)               |
@@ -232,7 +234,7 @@ A single-line status indicator with a colored dot and status text.
 ### Status Keys and Colors
 
 | Key        | Dot Color          | Typical Use                    |
-|------------|--------------------|--------------------------------|
+|-------------|----------------------|------------------------------------|
 | `Enabled`  | Green  `(60,210,120)` | Feature is active           |
 | `Disabled` | Grey   `(110,115,145)`| Feature is off              |
 | `Warning`  | Yellow `(255,185,45)` | Degraded or unexpected state|
@@ -242,7 +244,7 @@ A single-line status indicator with a colored dot and status text.
 ### Returns: `StatusManager`
 
 | Method      | Signature                       | Description                         |
-|-------------|---------------------------------|-------------------------------------|
+|--------------|-------------------------------------|------------------------------------------|
 | `SetStatus` | `(status: string, text?: string)` | Update status and optional display text |
 
 ### Example
@@ -272,14 +274,14 @@ Multiple accent buttons laid out in a single horizontal row.
 ### Settings
 
 | Key       | Type   | Required | Default   | Description                      |
-|-----------|--------|----------|-----------|----------------------------------|
+|------------|--------|----------|-------------|---------------------------------------|
 | `title`   | string | No       | —         | Optional label above the row     |
 | `buttons` | table  | Yes      | —         | Array of `{ text, callback }` entries |
 
 Each button entry:
 
 | Key        | Type   | Required | Description                    |
-|------------|--------|----------|--------------------------------|
+|------------|--------|----------|------------------------------------|
 | `text`     | string | Yes      | Button label                   |
 | `callback` | fn()   | No       | Called on click                |
 
@@ -289,7 +291,7 @@ Button widths are calculated automatically:
 ### Returns: `ButtonGroupManager`
 
 | Method              | Signature                    | Description                  |
-|---------------------|------------------------------|------------------------------|
+|----------------------|----------------------------------|------------------------------------|
 | `SetButtonText`     | `(index: number, text: string)` | Change a button's label   |
 | `SetButtonCallback` | `(index: number, fn: function)` | Replace a button's callback|
 
@@ -319,7 +321,7 @@ and visual separators.
 ### Settings
 
 | Key            | Type       | Required | Default                | Description                         |
-|----------------|------------|----------|------------------------|-------------------------------------|
+|-----------------|------------|----------|----------------------------|------------------------------------------|
 | `title`        | string     | No       | —                      | Optional label above the image      |
 | `image`        | string     | No       | `""`                   | Asset ID string (`rbxassetid://…`)  |
 | `size`         | UDim2      | No       | `UDim2.new(1,0,0,100)` | Size of the image element           |
@@ -328,7 +330,7 @@ and visual separators.
 ### Returns: `ImageManager`
 
 | Method     | Signature            | Description                     |
-|------------|----------------------|---------------------------------|
+|-------------|--------------------------|--------------------------------------|
 | `SetImage` | `(id: string)`       | Swap to a new asset ID          |
 | `SetSize`  | `(size: UDim2)`      | Resize the image element        |
 
@@ -350,20 +352,20 @@ img:SetImage("rbxassetid://999999999")
 
 ## Module:create_keybinddisplay(settings)
 
-A read-only display of active keybind assignments.  Reads from
+A read-only display of active keybind assignments. Reads from
 `Library._config._keybinds` and refreshes every 2 seconds automatically.
 
 ### Settings
 
 | Key     | Type       | Required | Default           | Description                            |
-|---------|------------|----------|-------------------|----------------------------------------|
+|----------|------------|----------|----------------------|---------------------------------------------|
 | `title` | string     | No       | `"Active Binds"`  | Section header label                   |
 | `binds` | { string } | No       | `{}`              | Module flag names to display binds for |
 
 ### Returns: `KeybindDisplayManager`
 
 | Method     | Signature              | Description                         |
-|------------|------------------------|-------------------------------------|
+|-------------|----------------------------|------------------------------------------|
 | `SetBinds` | `(flags: { string })`  | Replace the list of flags to display|
 | `Refresh`  | `()`                   | Force an immediate refresh          |
 
@@ -389,32 +391,74 @@ VisualModule   ──────  None
 SprintBind     ──────  LeftShift
 ```
 
-Values are read live from `Library._config._keybinds[flag]`.  If a
+Values are read live from `Library._config._keybinds[flag]`. If a
 module-header keybind has been assigned via middle-click, it appears here
 automatically.
 
 ---
 
-## Existing v1 Elements — Quick Reference
+## Flow:CreateWatermark(settings) — new in V2
 
-These are unchanged from v1 but included here for completeness.
+A small floating pill, independent of any tab or module, showing a title
+and (optionally) live FPS/ping. Theme-aware — it retints with the rest of
+the UI on every theme change, and picks up font changes the same way every
+other element does.
+
+### Settings
+
+| Key     | Type    | Required | Default   | Description                        |
+|----------|---------|----------|-------------|----------------------------------------|
+| `title` | string  | No       | `"Flow"`  | Text shown in the pill              |
+| `fps`   | boolean | No       | `true`    | Show a live FPS readout             |
+| `ping`  | boolean | No       | `true`    | Show a live ping (ms) readout       |
+
+### Returns: `WatermarkManager`
+
+| Method     | Signature       | Description                    |
+|-------------|---------------------|--------------------------------------|
+| `SetTitle` | `(text: string)` | Change the displayed title     |
+| `Destroy`  | `()`              | Remove the watermark entirely  |
+
+### Example
+
+```lua
+local Watermark = Flow:CreateWatermark({
+    title = "My Script",
+    fps = true,
+    ping = true,
+})
+
+Watermark:SetTitle("My Script v2")
+-- Watermark:Destroy()
+```
+
+Also toggleable by the end user from Settings → Watermark without any code
+on your part.
+
+---
+
+## Existing Elements — Quick Reference
 
 | Method                  | Returns                    |
-|-------------------------|----------------------------|
+|---------------------------|---------------------------------|
 | `create_label(s)`       | `{ SetText, SetTitle, Set }`|
 | `create_button(s)`      | `{ SetTitle, SetDescription, SetButtonText, SetCallback }` |
 | `create_paragraph(s)`   | `{ SetTitle, SetText, Set }`|
 | `create_text(s)`        | `{ Set }`                  |
-| `create_textbox(s)`     | `{ SetText }`              |
+| `create_textbox(s)`     | `{ SetText, GetText }`     |
 | `create_divider(s)`     | `true`                     |
 | `create_checkbox(s)`    | `{ change_state, SetTitle }`|
 | `create_slider(s)`      | `{ set_percentage, SetTitle }`|
 | `create_dropdown(s)`    | `{ update, unfold_settings, New }`|
 
+`create_textbox`'s `GetText` is new in V2 — it always reads the textbox's
+live, current text (even mid-typing, before the box loses focus), unlike
+relying on the value cached at the last `FocusLost`.
+
 ### Tab-level methods (no module required)
 
 | Method                       | Returns                        |
-|------------------------------|--------------------------------|
+|---------------------------------|-------------------------------------|
 | `Tab:create_label(s)`        | `{ SetText, SetTitle, Set, Destroy }` |
 | `Tab:create_button(s)`       | `{ SetTitle, SetDescription, SetButtonText, SetCallback, Destroy }` |
 
@@ -425,9 +469,15 @@ These are unchanged from v1 but included here for completeness.
 These fields are supported by most or all elements:
 
 | Field      | Type   | Description                                      |
-|------------|--------|--------------------------------------------------|
+|-------------|--------|-------------------------------------------------------|
 | `title`    | string | Primary label text                               |
 | `flag`     | string | Config persistence key (must be unique per element)|
 | `callback` | fn     | Called when the value changes                    |
 | `section`  | string | `"left"` (default) or `"right"` column           |
 | `rich`     | bool   | Enables RichText on label/paragraph elements     |
+
+**A note on text size (V2):** every text-bearing element's `TextSize` is
+automatically scaled relative to whatever UI font the user has selected in
+Settings → Themes → Typography. You don't need to account for this — set
+sizes as you always have; the library compensates for font metrics behind
+the scenes. See `THEME_SYSTEM.md` for how the scaling is calculated.
